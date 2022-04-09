@@ -223,7 +223,7 @@ if (process.env.DATABASE === 'mysql') {
 }
 
 server.listen(port, () => {
-    console.log(`El server esta listo por el puerto ${port}`);
+    console.log(`O servidor está escutando a porta ${port}`);
 })
 checkEnvFile();
 
