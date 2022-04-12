@@ -1,0 +1,6 @@
+555599908280, "Teste: Sua consulta foi cancelada 1."
+555193215665, "Teste: Sua consulta foi cancelada 2."
+557592108375, "Teste: Sua consulta foi cancelada 3."
+555191131693, "Teste: Sua consulta foi cancelada 4."
+555183236027, "Teste: Sua consulta foi cancelada 5."
+554192256981, "Teste: Sua consulta foi cancelada 6."

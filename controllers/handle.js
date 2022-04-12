@@ -46,8 +46,8 @@ const checkIsUrl = (path) => {
 const generateImage = (base64, cb = () => {}) => {
     let qr_svg = qr.image(base64, { type: 'svg', margin: 4 });
     qr_svg.pipe(require('fs').createWriteStream('./mediaSend/qr-code.svg'));
-    console.log(`⚡ Recuerda que el QR se actualiza cada minuto ⚡'`);
-    console.log(`⚡ Actualiza F5 el navegador para mantener el mejor QR⚡`);
+    console.log(`⚡ Geramos um novo QRCode a cada minuto ⚡'`);
+    console.log(`⚡ Caso estejas utilizando o navegador web pressione F5 para atualizá-lo. ⚡`);
     cb()
 }
 
@@ -55,7 +55,7 @@ const checkEnvFile = () => {
     const pathEnv = `${__dirname}/../.env`;
     const isExist = fs.existsSync(pathEnv);
     if(!isExist){
-        console.log(`🆗 ATENCION! 🆗 te falta crear tu archivo .env de lo contrario no funcionara`)
+        console.log(`Erro no arquivo ENV. Contate o adminstardor do sistema.`)
     }
 }
 
@@ -65,7 +65,7 @@ const checkEnvFile = () => {
  * @param {*} cb 
  */
 const createClient =  (session = {}, login = false) => {
-    console.log(`Mode: ${(MULTI_DEVICE === 'false') ? 'No Multi-device' : 'Si Multi-device'} `)
+    console.log(`Modo de conexão: ${(MULTI_DEVICE === 'false') ? 'única' : 'multipla.'} `)
     const objectLegacy = (login) ? {
         authStrategy: new LegacySessionAuth({
             session

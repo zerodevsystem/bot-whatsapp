@@ -4,7 +4,7 @@ const moment = require('moment');
 const fs = require('fs');
 const { MessageMedia, Buttons } = require('whatsapp-web.js');
 const { cleanNumber } = require('./handle')
-const DELAY_TIME = 170; //ms
+const DELAY_TIME = 500; //ms
 const DIR_MEDIA = `${__dirname}/../mediaSend`;
 // import { Low, JSONFile } from 'lowdb'
 // import { join } from 'path'
@@ -49,9 +49,20 @@ const sendMessage = async (client, number = null, text = null, trigger = null) =
     const message = text
     client.sendMessage(number, message);
     await readChat(number, message, trigger)
-    console.log(`⚡⚡⚡ Enviando mensajes....`);
+    console.log(`⚡⚡⚡ Enviando mensagem ⚡⚡⚡`);
    },DELAY_TIME)
 }
+
+const sendMessage2 = async (client, number = null, text = null, trigger = null) => {
+    setTimeout(async () => {
+     number = cleanNumber(number)
+     const message = text
+     client.sendMessage(number, message);
+     await readChat(number, message, trigger)
+     console.log(`⚡⚡⚡ Enviando mensagem ⚡⚡⚡`);
+    },DELAY_TIME)
+ }
+
 
 /**
  * Enviamos un mensaje con buttons a nuestro cliente
@@ -63,7 +74,7 @@ const sendMessageButton = async (client, number = null, text = null, actionButto
     let button = new Buttons(message,[...buttons], title, footer);
     client.sendMessage(number, button);
 
-    console.log(`⚡⚡⚡ Enviando mensajes....`);
+    console.log(`⚡⚡⚡ Enviando mensagem ⚡⚡⚡`);
 }
 
 
@@ -96,7 +107,8 @@ const lastTrigger = (number) => new Promise((resolve, reject) => {
 const readChat = async (number, message, trigger = null) => {
     number = cleanNumber(number)
     await saveMessage( message, trigger, number )
-    console.log('Saved')
+    console.log('Histórico armazenado com sucesso!')
 }
+
 
 module.exports = { sendMessage, sendMedia, lastTrigger, sendMessageButton, readChat, sendMediaVoiceNote }

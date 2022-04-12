@@ -4,8 +4,8 @@
 
 require('dotenv').config()
 const fs = require('fs');
-const pathFrantz = "./arquivoWhatsapp.txt";
 const readline = require('readline');
+const pathFrantz = "./arquivoWhatsapp.txt";
 const express = require('express');
 const cors = require('cors')
 const qrcode = require('qrcode-terminal');
@@ -178,40 +178,7 @@ const withOutSession = () => {
 
     client.on('ready', (a) => {
 
-        /***************************************** */
-        fs.readFile(pathFrantz, 'utf8', (err, data) => {
-            if (err) {
-                if (err.code === 'ENOENT') {
-                    console.error('Arquivo não existe');
-                    return;
-                }
-                throw err;
-            }
-            console.log('Arquivo com o agendamento de consultas encontrado.');
-
-            if (err) {
-                console.error(err)
-                return
-            }  
-            const rl = readline.createInterface({
-                input: fs.createReadStream(pathFrantz),
-                crlfDelay: Infinity
-            	});
-                var numero = 0;
-            	var mensagem = "";
-
-                rl.on('line', linha => {
-                	let campos = linha.split(','); // campos delimitados por vírgula
-                	numero = campos[0];
-                	mensagem = campos[1];
-                	console.log( "Telefone: " + numero + " Mensagem:" +  mensagem );
-                
-                	sendMessage(client, numero, mensagem, null);               
-        	})
-            
-        });
-        /**************************************** */
-
+        
         connectionReady()
         listenMessage()
         loadRoutes(client);
@@ -254,6 +221,23 @@ if (process.env.DATABASE === 'mysql') {
 
 server.listen(port, () => {
     console.log(`Este serviço utiliza a porta ${port}`);
+
+    const rl = readline.createInterface({
+        input: fs.createReadStream(pathFrantz),
+        crlfDelay: Infinity
+    });
+    var numero = 0;
+    var mensagem = "";
+    rl.on('line', linha => {
+        let campos = linha.split(','); // campos delimitados por vírgula
+        numero = campos[0];
+        mensagem = campos[1];
+        console.log( "Telefone: " + numero + " Mensagem:" +  mensagem );
+        //console.log( `Inscrição: ${campos[1]} - Evento: ${campos[2]} - Nome: ${campos[0]}` );
+        //sendMessage(client, ${campos[0]}, arr[i].replace(',', ""), null);
+    });
+ 
+
 })
 checkEnvFile();
 
